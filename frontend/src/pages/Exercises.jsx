@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { calculateCaloriesBurned } from '../utils/calorieCalculator'
 import './Exercises.css'
 
 const Exercises = () => {
+  const { t } = useTranslation()
   const [searchTerm, setSearchTerm] = useState('')
   const [filterCategory, setFilterCategory] = useState('all')
 
@@ -49,8 +52,8 @@ const Exercises = () => {
       <div className="container">
         <div className="page-header">
           <div>
-            <h1>Exercise Library</h1>
-            <p>Browse our comprehensive collection of exercises</p>
+            <h1>{t('exercises.title')}</h1>
+            <p>{t('exercises.subtitle')}</p>
           </div>
         </div>
 
@@ -60,7 +63,7 @@ const Exercises = () => {
             <input
               type="text"
               className="search-input"
-              placeholder="Search exercises..."
+              placeholder={t('exercises.search')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -73,42 +76,49 @@ const Exercises = () => {
                 className={`filter-btn ${filterCategory === category ? 'active' : ''}`}
                 onClick={() => setFilterCategory(category)}
               >
-                {category.charAt(0).toUpperCase() + category.slice(1)}
+                {t(`exercises.categories.${category}`)}
               </button>
             ))}
           </div>
         </div>
 
         <div className="exercises-count">
-          Showing {filteredExercises.length} exercise{filteredExercises.length !== 1 ? 's' : ''}
+          {t('exercises.showing')} {filteredExercises.length} {filteredExercises.length === 1 ? t('exercises.exercise') : t('exercises.exercises')}
         </div>
 
         <div className="exercises-grid">
-          {filteredExercises.map(exercise => (
-            <div key={exercise.id} className="exercise-card">
-              <div className="exercise-header">
-                <h3>{exercise.name}</h3>
-                <span 
-                  className="difficulty-badge"
-                  style={{ backgroundColor: getDifficultyColor(exercise.difficulty) }}
-                >
-                  {exercise.difficulty}
-                </span>
+          {filteredExercises.map(exercise => {
+            const caloriesBurned = calculateCaloriesBurned(exercise.name, 70, 30)
+            return (
+              <div key={exercise.id} className="exercise-card">
+                <div className="exercise-header">
+                  <h3>{exercise.name}</h3>
+                  <span 
+                    className="difficulty-badge"
+                    style={{ backgroundColor: getDifficultyColor(exercise.difficulty) }}
+                  >
+                    {t(`exercises.difficulty.${exercise.difficulty}`)}
+                  </span>
+                </div>
+                <div className="exercise-meta">
+                  <span className="exercise-category">
+                    📁 {t(`exercises.categories.${exercise.category}`)}
+                  </span>
+                  <span className="exercise-equipment">
+                    🏋️ {exercise.equipment}
+                  </span>
+                </div>
+                <p className="exercise-description">{exercise.description}</p>
+                <div className="exercise-calories">
+                  <span className="calories-icon">⚡</span>
+                  <span className="calories-text">~{caloriesBurned} {t('common.calories')} / 30 min</span>
+                </div>
+                <button className="btn btn-outline btn-full">
+                  {t('exercises.addToWorkout')}
+                </button>
               </div>
-              <div className="exercise-meta">
-                <span className="exercise-category">
-                  📁 {exercise.category.charAt(0).toUpperCase() + exercise.category.slice(1)}
-                </span>
-                <span className="exercise-equipment">
-                  🏋️ {exercise.equipment}
-                </span>
-              </div>
-              <p className="exercise-description">{exercise.description}</p>
-              <button className="btn btn-outline btn-full">
-                Add to Workout
-              </button>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {filteredExercises.length === 0 && (

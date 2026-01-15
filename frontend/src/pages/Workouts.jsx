@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import './Workouts.css'
 
 const Workouts = () => {
+  const { t } = useTranslation()
   const [workouts, setWorkouts] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [newWorkout, setNewWorkout] = useState({
@@ -72,17 +74,17 @@ const Workouts = () => {
       <div className="container">
         <div className="page-header">
           <div>
-            <h1>My Workouts</h1>
-            <p>Create and manage your training routines</p>
+            <h1>{t('workouts.title')}</h1>
+            <p>{t('workouts.subtitle')}</p>
           </div>
           <button className="btn btn-primary" onClick={() => setShowModal(true)}>
-            + Create Custom Workout
+            {t('workouts.createCustom')}
           </button>
         </div>
 
         <div className="workouts-section">
-          <h2>Workout Templates</h2>
-          <p className="section-subtitle">Quick start with pre-built routines</p>
+          <h2>{t('workouts.templates')}</h2>
+          <p className="section-subtitle">{t('workouts.templatesSubtitle')}</p>
           <div className="templates-grid">
             {workoutTemplates.map((template, index) => (
               <div key={index} className="template-card">
@@ -94,7 +96,7 @@ const Workouts = () => {
                   ))}
                 </ul>
                 <button className="btn btn-outline btn-full" onClick={() => useTemplate(template)}>
-                  Use Template
+                  {t('workouts.useTemplate')}
                 </button>
               </div>
             ))}
@@ -102,7 +104,7 @@ const Workouts = () => {
         </div>
 
         <div className="workouts-section">
-          <h2>My Custom Workouts</h2>
+          <h2>{t('workouts.myCustom')}</h2>
           {workouts.length > 0 ? (
             <div className="workouts-grid">
               {workouts.map((workout) => (
@@ -119,7 +121,7 @@ const Workouts = () => {
                       {new Date(workout.date).toLocaleDateString()}
                     </span>
                     <span className="workout-exercises">
-                      {workout.exercises?.length || 0} exercises
+                      {workout.exercises?.length || 0} {t('exercises.exercises')}
                     </span>
                   </div>
                 </div>
@@ -127,7 +129,7 @@ const Workouts = () => {
             </div>
           ) : (
             <div className="empty-state">
-              <p>No custom workouts yet. Create your first one!</p>
+              <p>{t('workouts.noCustomWorkouts')}</p>
             </div>
           )}
         </div>
@@ -136,12 +138,12 @@ const Workouts = () => {
           <div className="modal-overlay" onClick={() => setShowModal(false)}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
               <div className="modal-header">
-                <h2>Create Custom Workout</h2>
+                <h2>{t('workouts.createWorkoutTitle')}</h2>
                 <button className="close-btn" onClick={() => setShowModal(false)}>×</button>
               </div>
               <div className="modal-body">
                 <div className="form-group">
-                  <label className="form-label">Workout Name</label>
+                  <label className="form-label">{t('workouts.workoutName')}</label>
                   <input
                     type="text"
                     className="form-input"
@@ -151,7 +153,7 @@ const Workouts = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Description</label>
+                  <label className="form-label">{t('workouts.description')}</label>
                   <textarea
                     className="form-input"
                     rows="3"
@@ -163,10 +165,10 @@ const Workouts = () => {
               </div>
               <div className="modal-footer">
                 <button className="btn btn-outline" onClick={() => setShowModal(false)}>
-                  Cancel
+                  {t('workouts.cancel')}
                 </button>
                 <button className="btn btn-primary" onClick={saveWorkout}>
-                  Create Workout
+                  {t('workouts.create')}
                 </button>
               </div>
             </div>

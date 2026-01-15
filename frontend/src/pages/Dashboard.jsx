@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
+import { calculateWorkoutCalories } from '../utils/calorieCalculator'
 import './Dashboard.css'
 
 const Dashboard = () => {
+  const { t } = useTranslation()
   const { user, isPremium } = useAuth()
   const [stats, setStats] = useState({
     totalWorkouts: 0,
     thisWeek: 0,
     currentStreak: 0,
-    totalExercises: 0
+    totalExercises: 0,
+    totalCaloriesBurned: 0
   })
 
   useEffect(() => {
@@ -23,11 +27,17 @@ const Dashboard = () => {
       return workoutDate >= weekAgo
     })
 
+    const userWeight = 70
+    const totalCalories = savedWorkouts.reduce((sum, workout) => {
+      return sum + calculateWorkoutCalories(workout.exercises || [], userWeight)
+    }, 0)
+
     setStats({
       totalWorkouts: savedWorkouts.length,
       thisWeek: thisWeekWorkouts.length,
       currentStreak: calculateStreak(savedWorkouts),
-      totalExercises: savedWorkouts.reduce((sum, w) => sum + (w.exercises?.length || 0), 0)
+      totalExercises: savedWorkouts.reduce((sum, w) => sum + (w.exercises?.length || 0), 0),
+      totalCaloriesBurned: totalCalories
     })
   }, [])
 
@@ -64,12 +74,12 @@ const Dashboard = () => {
       <div className="container">
         <div className="dashboard-header">
           <div>
-            <h1>Welcome back, {user?.name}! 👋</h1>
-            <p className="dashboard-subtitle">Here's your fitness overview</p>
+            <h1>{t('dashboard.welcomeBack')}, {user?.name}! 👋</h1>
+            <p className="dashboard-subtitle">{t('dashboard.subtitle')}</p>
           </div>
           {!isPremium && (
             <Link to="/premium" className="btn btn-warning">
-              ⭐ Upgrade to Premium
+              {t('dashboard.upgradePremium')}
             </Link>
           )}
         </div>
@@ -79,58 +89,65 @@ const Dashboard = () => {
             <div className="stat-icon">💪</div>
             <div className="stat-info">
               <div className="stat-value">{stats.totalWorkouts}</div>
-              <div className="stat-label">Total Workouts</div>
+              <div className="stat-label">{t('dashboard.stats.totalWorkouts')}</div>
             </div>
           </div>
           <div className="stat-card">
             <div className="stat-icon">📅</div>
             <div className="stat-info">
               <div className="stat-value">{stats.thisWeek}</div>
-              <div className="stat-label">This Week</div>
+              <div className="stat-label">{t('dashboard.stats.thisWeek')}</div>
             </div>
           </div>
           <div className="stat-card">
             <div className="stat-icon">🔥</div>
             <div className="stat-info">
               <div className="stat-value">{stats.currentStreak}</div>
-              <div className="stat-label">Day Streak</div>
+              <div className="stat-label">{t('dashboard.stats.dayStreak')}</div>
             </div>
           </div>
           <div className="stat-card">
             <div className="stat-icon">🎯</div>
             <div className="stat-info">
               <div className="stat-value">{stats.totalExercises}</div>
-              <div className="stat-label">Exercises Done</div>
+              <div className="stat-label">{t('dashboard.stats.exercisesDone')}</div>
+            </div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-icon">⚡</div>
+            <div className="stat-info">
+              <div className="stat-value">{stats.totalCaloriesBurned}</div>
+              <div className="stat-label">{t('common.calories')} {t('common.burned')}</div>
             </div>
           </div>
         </div>
 
         <div className="dashboard-content">
           <div className="dashboard-section">
-            <h2>Quick Actions</h2>
+            <h2>{t('dashboard.quickActions.title')}</h2>
             <div className="quick-actions">
               <Link to="/workouts" className="action-card">
                 <div className="action-icon">🏋️</div>
-                <h3>Start Workout</h3>
-                <p>Begin your training session</p>
+                <h3>{t('dashboard.quickActions.startWorkout')}</h3>
+                <p>{t('dashboard.quickActions.startWorkoutDesc')}</p>
               </Link>
               <Link to="/exercises" className="action-card">
                 <div className="action-icon">📚</div>
-                <h3>Browse Exercises</h3>
-                <p>Explore exercise library</p>
+                <h3>{t('dashboard.quickActions.browseExercises')}</h3>
+                <p>{t('dashboard.quickActions.browseExercisesDesc')}</p>
               </Link>
               <Link to="/progress" className="action-card">
                 <div className="action-icon">📈</div>
-                <h3>View Progress</h3>
-                <p>Track your improvements</p>
+                <h3>{t('dashboard.quickActions.viewProgress')}</h3>
+                <p>{t('dashboard.quickActions.viewProgressDesc')}</p>
               </Link>
             </div>
           </div>
 
           <div className="dashboard-section">
             <div className="section-header">
-              <h2>Recent Workouts</h2>
-              <Link to="/workouts" className="view-all">View All →</Link>
+              <h2>{t('dashboard.recentWorkouts.title')}</h2>
+              <Link to="/workouts" className="view-all">{t('dashboard.recentWorkouts.viewAll')}</Link>
             </div>
             {recentWorkouts.length > 0 ? (
               <div className="recent-workouts">
@@ -139,7 +156,7 @@ const Dashboard = () => {
                     <div className="workout-info">
                       <h4>{workout.name}</h4>
                       <p className="workout-meta">
-                        {new Date(workout.date).toLocaleDateString()} • {workout.exercises?.length || 0} exercises
+                        {new Date(workout.date).toLocaleDateString()} • {workout.exercises?.length || 0} {t('dashboard.recentWorkouts.exercises')}
                       </p>
                     </div>
                     <div className="workout-badge">{workout.duration || '45 min'}</div>
@@ -148,8 +165,8 @@ const Dashboard = () => {
               </div>
             ) : (
               <div className="empty-state">
-                <p>No workouts yet. Start your first workout today!</p>
-                <Link to="/workouts" className="btn btn-primary">Create Workout</Link>
+                <p>{t('dashboard.recentWorkouts.noWorkouts')}</p>
+                <Link to="/workouts" className="btn btn-primary">{t('dashboard.recentWorkouts.createWorkout')}</Link>
               </div>
             )}
           </div>
@@ -157,16 +174,14 @@ const Dashboard = () => {
           {!isPremium && (
             <div className="dashboard-section premium-cta">
               <div className="premium-card">
-                <h2>🌟 Unlock Premium Features</h2>
+                <h2>{t('dashboard.premiumCta.title')}</h2>
                 <ul className="premium-features">
-                  <li>✓ AI-powered workout recommendations</li>
-                  <li>✓ Personalized training plans</li>
-                  <li>✓ Advanced progress analytics</li>
-                  <li>✓ Nutrition tracking</li>
-                  <li>✓ Expert workout programs</li>
+                  {t('dashboard.premiumCta.features', { returnObjects: true }).map((feature, idx) => (
+                    <li key={idx}>{feature}</li>
+                  ))}
                 </ul>
                 <Link to="/premium" className="btn btn-primary btn-lg">
-                  Go Premium Now
+                  {t('dashboard.premiumCta.button')}
                 </Link>
               </div>
             </div>

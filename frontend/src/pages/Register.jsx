@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import './Auth.css'
 
 const Register = () => {
+  const { t } = useTranslation()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -18,17 +20,17 @@ const Register = () => {
     setError('')
 
     if (!name || !email || !password || !confirmPassword) {
-      setError('Please fill in all fields')
+      setError(t('auth.fillAllFields'))
       return
     }
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match')
+      setError(t('auth.passwordsDontMatch'))
       return
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters')
+      setError(t('auth.passwordTooShort'))
       return
     }
 
@@ -50,14 +52,14 @@ const Register = () => {
       <div className="container">
         <div className="auth-container">
           <div className="auth-card">
-            <h1 className="auth-title">Create Account</h1>
-            <p className="auth-subtitle">Start your fitness journey today</p>
+            <h1 className="auth-title">{t('auth.createAccount')}</h1>
+            <p className="auth-subtitle">{t('auth.registerSubtitle')}</p>
 
             {error && <div className="error-message">{error}</div>}
 
             <form onSubmit={handleSubmit} className="auth-form">
               <div className="form-group">
-                <label htmlFor="name" className="form-label">Full Name</label>
+                <label htmlFor="name" className="form-label">{t('auth.fullName')}</label>
                 <input
                   id="name"
                   type="text"
@@ -70,7 +72,7 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="email" className="form-label">Email</label>
+                <label htmlFor="email" className="form-label">{t('auth.email')}</label>
                 <input
                   id="email"
                   type="email"
@@ -83,7 +85,7 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="password" className="form-label">Password</label>
+                <label htmlFor="password" className="form-label">{t('auth.password')}</label>
                 <input
                   id="password"
                   type="password"
@@ -96,7 +98,7 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                <label htmlFor="confirmPassword" className="form-label">{t('auth.confirmPassword')}</label>
                 <input
                   id="confirmPassword"
                   type="password"
@@ -109,12 +111,12 @@ const Register = () => {
               </div>
 
               <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
-                {loading ? 'Creating account...' : 'Create Account'}
+                {loading ? t('auth.creatingAccount') : t('auth.signUp')}
               </button>
             </form>
 
             <div className="auth-footer">
-              <p>Already have an account? <Link to="/login" className="auth-link">Sign in</Link></p>
+              <p>{t('auth.alreadyHaveAccount')} <Link to="/login" className="auth-link">{t('auth.signIn')}</Link></p>
             </div>
           </div>
         </div>
