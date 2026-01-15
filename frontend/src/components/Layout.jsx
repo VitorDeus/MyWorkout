@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import { Outlet, Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
+import { useTheme } from '../context/ThemeContext'
 import './Layout.css'
 
 const Layout = () => {
+  const { t, i18n } = useTranslation()
   const { isAuthenticated, user, logout, isPremium } = useAuth()
+  const { isDarkMode, toggleDarkMode } = useTheme()
   const navigate = useNavigate()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [showLangMenu, setShowLangMenu] = useState(false)
 
   const handleLogout = () => {
     logout()
@@ -17,6 +22,19 @@ const Layout = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng)
+    setShowLangMenu(false)
+    setIsMobileMenuOpen(false)
+  }
+
+  const languages = [
+    { code: 'pt', name: 'Português', flag: '🇧🇷' },
+    { code: 'en', name: 'English', flag: '🇺🇸' }
+  ]
+
+  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0]
 
   return (
     <div className="layout">
@@ -38,42 +56,78 @@ const Layout = () => {
               {isAuthenticated ? (
                 <>
                   <Link to="/dashboard" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                    Dashboard
+                    {t('nav.dashboard')}
                   </Link>
                   <Link to="/workouts" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                    Workouts
+                    {t('nav.workouts')}
                   </Link>
                   <Link to="/exercises" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                    Exercises
+                    {t('nav.exercises')}
                   </Link>
                   <Link to="/progress" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                    Progress
+                    {t('nav.progress')}
                   </Link>
                   {!isPremium && (
                     <Link to="/premium" className="nav-link premium-link" onClick={() => setIsMobileMenuOpen(false)}>
-                      ⭐ Go Premium
+                      {t('nav.goPremium')}
                     </Link>
                   )}
                   <div className="nav-user">
                     <span className="user-name">{user?.name}</span>
                     <Link to="/profile" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                      Profile
+                      {t('nav.profile')}
                     </Link>
                     <button onClick={handleLogout} className="btn btn-sm btn-outline">
-                      Logout
+                      {t('nav.logout')}
                     </button>
                   </div>
                 </>
               ) : (
                 <>
                   <Link to="/login" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                    Login
+                    {t('nav.login')}
                   </Link>
                   <Link to="/register" className="btn btn-primary" onClick={() => setIsMobileMenuOpen(false)}>
-                    Get Started
+                    {t('nav.getStarted')}
                   </Link>
                 </>
               )}
+
+              {/* Dark Mode Toggle */}
+              <button 
+                className="theme-toggle" 
+                onClick={toggleDarkMode}
+                aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                title={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+              >
+                {isDarkMode ? '☀️' : '🌙'}
+              </button>
+
+              {/* Language Selector */}
+              <div className="language-selector">
+                <button 
+                  className="lang-button" 
+                  onClick={() => setShowLangMenu(!showLangMenu)}
+                  aria-label="Select language"
+                >
+                  <span className="lang-flag">{currentLanguage.flag}</span>
+                  <span className="lang-code">{currentLanguage.code.toUpperCase()}</span>
+                </button>
+                {showLangMenu && (
+                  <div className="lang-menu">
+                    {languages.map(lang => (
+                      <button
+                        key={lang.code}
+                        className={`lang-option ${i18n.language === lang.code ? 'active' : ''}`}
+                        onClick={() => changeLanguage(lang.code)}
+                      >
+                        <span className="lang-flag">{lang.flag}</span>
+                        <span className="lang-name">{lang.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -88,23 +142,23 @@ const Layout = () => {
           <div className="footer-content">
             <div className="footer-section">
               <h4>MyWorkout</h4>
-              <p>Your personal fitness companion</p>
+              <p>{t('footer.tagline')}</p>
             </div>
             <div className="footer-section">
-              <h4>Quick Links</h4>
-              <Link to="/exercises">Exercises</Link>
-              <Link to="/workouts">Workouts</Link>
-              <Link to="/premium">Premium</Link>
+              <h4>{t('footer.quickLinks')}</h4>
+              <Link to="/exercises">{t('nav.exercises')}</Link>
+              <Link to="/workouts">{t('nav.workouts')}</Link>
+              <Link to="/premium">{t('nav.premium')}</Link>
             </div>
             <div className="footer-section">
-              <h4>Support</h4>
-              <a href="#help">Help Center</a>
-              <a href="#contact">Contact Us</a>
-              <a href="#privacy">Privacy Policy</a>
+              <h4>{t('footer.support')}</h4>
+              <a href="#help">{t('footer.helpCenter')}</a>
+              <a href="#contact">{t('footer.contactUs')}</a>
+              <a href="#privacy">{t('footer.privacyPolicy')}</a>
             </div>
           </div>
           <div className="footer-bottom">
-            <p>&copy; 2026 MyWorkout. All rights reserved.</p>
+            <p>&copy; 2026 MyWorkout. {t('footer.allRightsReserved')}</p>
           </div>
         </div>
       </footer>
