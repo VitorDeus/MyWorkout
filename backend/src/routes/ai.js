@@ -2,8 +2,12 @@ import express from 'express';
 import { protect, premiumRequired } from '../middleware/auth.js';
 import groqService from '../services/groqService.js';
 import { query } from '../config/database.js';
+import { aiRateLimit } from '../middleware/rateLimit.js';
 
 const router = express.Router();
+
+// Apply AI-specific rate limiting to all routes
+router.use(aiRateLimit);
 
 /**
  * @route   POST /api/ai/advice

@@ -2,6 +2,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import { query } from '../config/database.js';
 import { generateToken } from '../middleware/auth.js';
+import { authRateLimit } from '../middleware/rateLimit.js';
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ const router = express.Router();
  * @desc    Register a new user
  * @access  Public
  */
-router.post('/register', async (req, res) => {
+router.post('/register', authRateLimit, async (req, res) => {
   try {
     const { email, password, name, age, weight, height, fitnessGoal, experienceLevel } = req.body;
 
@@ -87,7 +88,7 @@ router.post('/register', async (req, res) => {
  * @desc    Login user
  * @access  Public
  */
-router.post('/login', async (req, res) => {
+router.post('/login', authRateLimit, async (req, res) => {
   try {
     const { email, password } = req.body;
 

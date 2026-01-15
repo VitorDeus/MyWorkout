@@ -1,8 +1,12 @@
 import express from 'express';
 import { protect } from '../middleware/auth.js';
 import { query } from '../config/database.js';
+import { apiRateLimit } from '../middleware/rateLimit.js';
 
 const router = express.Router();
+
+// Apply rate limiting to all workout routes
+router.use(apiRateLimit);
 
 /**
  * @route   GET /api/workouts
