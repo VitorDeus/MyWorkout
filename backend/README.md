@@ -1,18 +1,21 @@
 # MyWorkout Backend API
 
-Backend API for MyWorkout fitness tracking application with Groq AI integration for personalized workout recommendations.
+Backend API for MyWorkout fitness tracking application with Groq AI specialized agent system for personalized fitness coaching.
 
 ## 🚀 Features
 
 - **RESTful API** with Express.js
 - **PostgreSQL Database** for data persistence
 - **JWT Authentication** for secure access
-- **Groq AI Integration** for intelligent workout recommendations
-- **Multi-Agent AI System** inspired by LangGraph architecture:
-  - **Optimus** (🔷) - Analytical and logical fitness analysis
-  - **Bumblebee** (🟡) - Empathetic and humanistic approach
-  - **Ratchet** (🟢) - Pragmatic and technical solutions
+- **Groq AI Specialized Agents** - Domain expert AI coaches:
+  - **🏋️ Personal Trainer** - Workout programming and exercise selection expert
+  - **🍎 Nutrition Coach** - Nutrition science and meal planning specialist
+  - **💪 Recovery Coach** - Recovery strategies and injury prevention expert
+  - **📊 Performance Analyst** - Data analysis and progress tracking specialist
+  - **🧠 Motivation Coach** - Psychology and habit formation expert
+- **Intelligent Routing** - Automatically routes questions to relevant specialized agents
 - **Docker Support** for easy deployment
+- **Rate Limiting** for API protection
 - **Premium Features** gating for monetization
 
 ## 📦 Tech Stack
@@ -20,9 +23,10 @@ Backend API for MyWorkout fitness tracking application with Groq AI integration 
 - **Node.js 18+** with ES Modules
 - **Express.js** - Web framework
 - **PostgreSQL** - Relational database
-- **Groq AI** - AI model integration
+- **Groq AI** (LLaMA 3.3 70B) - AI model integration
 - **bcrypt** - Password hashing
 - **jsonwebtoken** - JWT authentication
+- **express-rate-limit** - API rate limiting
 - **Docker & Docker Compose** - Containerization
 
 ## 🛠️ Installation
