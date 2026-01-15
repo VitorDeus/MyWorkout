@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import './Profile.css'
 
 const Profile = () => {
+  const { t } = useTranslation()
   const { user, isPremium } = useAuth()
   const [isEditing, setIsEditing] = useState(false)
   const [profile, setProfile] = useState({
@@ -30,12 +32,12 @@ const Profile = () => {
       <div className="container">
         <div className="page-header">
           <div>
-            <h1>Profile Settings</h1>
-            <p>Manage your account and preferences</p>
+            <h1>{t('profile.title')}</h1>
+            <p>{t('profile.subtitle')}</p>
           </div>
           {!isEditing && (
             <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
-              Edit Profile
+              {t('profile.editProfile')}
             </button>
           )}
         </div>
@@ -49,7 +51,7 @@ const Profile = () => {
               <div className="profile-info">
                 <h2>{user?.name}</h2>
                 <p>{user?.email}</p>
-                {isPremium && <span className="premium-badge">⭐ Premium Member</span>}
+                {isPremium && <span className="premium-badge">{t('profile.premiumMember')}</span>}
               </div>
             </div>
 
@@ -58,7 +60,7 @@ const Profile = () => {
                 <div className="stat-value">
                   {JSON.parse(localStorage.getItem('workouts') || '[]').length}
                 </div>
-                <div className="stat-label">Workouts</div>
+                <div className="stat-label">{t('profile.workouts')}</div>
               </div>
               <div className="profile-stat">
                 <div className="stat-value">
@@ -68,7 +70,7 @@ const Profile = () => {
                     return uniqueDays
                   })()}
                 </div>
-                <div className="stat-label">Days Active</div>
+                <div className="stat-label">{t('profile.daysActive')}</div>
               </div>
               <div className="profile-stat">
                 <div className="stat-value">
@@ -81,16 +83,16 @@ const Profile = () => {
                     return achievements
                   })()}
                 </div>
-                <div className="stat-label">Achievements</div>
+                <div className="stat-label">{t('profile.achievements')}</div>
               </div>
             </div>
           </div>
 
           <div className="profile-details">
-            <h3>Personal Information</h3>
+            <h3>{t('profile.personalInfo')}</h3>
             <div className="details-form">
               <div className="form-group">
-                <label className="form-label">Full Name</label>
+                <label className="form-label">{t('profile.fullName')}</label>
                 <input
                   type="text"
                   className="form-input"
@@ -101,7 +103,7 @@ const Profile = () => {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Email</label>
+                <label className="form-label">{t('profile.email')}</label>
                 <input
                   type="email"
                   className="form-input"
@@ -113,7 +115,7 @@ const Profile = () => {
 
               <div className="form-row">
                 <div className="form-group">
-                  <label className="form-label">Age</label>
+                  <label className="form-label">{t('profile.age')}</label>
                   <input
                     type="number"
                     className="form-input"
@@ -125,7 +127,7 @@ const Profile = () => {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Weight (kg)</label>
+                  <label className="form-label">{t('profile.weight')}</label>
                   <input
                     type="number"
                     className="form-input"
@@ -137,7 +139,7 @@ const Profile = () => {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Height (cm)</label>
+                  <label className="form-label">{t('profile.height')}</label>
                   <input
                     type="number"
                     className="form-input"
@@ -150,42 +152,42 @@ const Profile = () => {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Fitness Goal</label>
+                <label className="form-label">{t('profile.fitnessGoal')}</label>
                 <select
                   className="form-input"
                   value={profile.goal}
                   onChange={(e) => handleChange('goal', e.target.value)}
                   disabled={!isEditing}
                 >
-                  <option value="strength">Build Strength</option>
-                  <option value="muscle">Gain Muscle</option>
-                  <option value="weight-loss">Lose Weight</option>
-                  <option value="endurance">Improve Endurance</option>
-                  <option value="general">General Fitness</option>
+                  <option value="strength">{t('profile.goals.strength')}</option>
+                  <option value="muscle">{t('profile.goals.muscle')}</option>
+                  <option value="weight-loss">{t('profile.goals.weightLoss')}</option>
+                  <option value="endurance">{t('profile.goals.endurance')}</option>
+                  <option value="general">{t('profile.goals.general')}</option>
                 </select>
               </div>
 
               <div className="form-group">
-                <label className="form-label">Experience Level</label>
+                <label className="form-label">{t('profile.experienceLevel')}</label>
                 <select
                   className="form-input"
                   value={profile.experience}
                   onChange={(e) => handleChange('experience', e.target.value)}
                   disabled={!isEditing}
                 >
-                  <option value="beginner">Beginner</option>
-                  <option value="intermediate">Intermediate</option>
-                  <option value="advanced">Advanced</option>
+                  <option value="beginner">{t('profile.experience.beginner')}</option>
+                  <option value="intermediate">{t('profile.experience.intermediate')}</option>
+                  <option value="advanced">{t('profile.experience.advanced')}</option>
                 </select>
               </div>
 
               {isEditing && (
                 <div className="form-actions">
                   <button className="btn btn-outline" onClick={() => setIsEditing(false)}>
-                    Cancel
+                    {t('profile.cancel')}
                   </button>
                   <button className="btn btn-primary" onClick={handleSave}>
-                    Save Changes
+                    {t('profile.saveChanges')}
                   </button>
                 </div>
               )}
@@ -193,11 +195,11 @@ const Profile = () => {
           </div>
 
           <div className="profile-preferences">
-            <h3>Preferences</h3>
+            <h3>{t('profile.preferences')}</h3>
             <div className="preference-item">
               <div>
-                <h4>Email Notifications</h4>
-                <p>Receive workout reminders and updates</p>
+                <h4>{t('profile.emailNotifications')}</h4>
+                <p>{t('profile.emailNotificationsDesc')}</p>
               </div>
               <label className="toggle">
                 <input type="checkbox" defaultChecked />
@@ -206,8 +208,8 @@ const Profile = () => {
             </div>
             <div className="preference-item">
               <div>
-                <h4>Weekly Reports</h4>
-                <p>Get your weekly progress summary</p>
+                <h4>{t('profile.weeklyReports')}</h4>
+                <p>{t('profile.weeklyReportsDesc')}</p>
               </div>
               <label className="toggle">
                 <input type="checkbox" defaultChecked />
@@ -216,8 +218,8 @@ const Profile = () => {
             </div>
             <div className="preference-item">
               <div>
-                <h4>Social Sharing</h4>
-                <p>Allow others to see your achievements</p>
+                <h4>{t('profile.socialSharing')}</h4>
+                <p>{t('profile.socialSharingDesc')}</p>
               </div>
               <label className="toggle">
                 <input type="checkbox" />

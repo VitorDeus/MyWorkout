@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import './Premium.css'
 
 const Premium = () => {
+  const { t } = useTranslation()
   const { isPremium, upgradeToPremium } = useAuth()
   const navigate = useNavigate()
   const [selectedPlan, setSelectedPlan] = useState('annual')
@@ -16,26 +18,26 @@ const Premium = () => {
   const plans = [
     {
       id: 'monthly',
-      name: 'Monthly',
+      name: t('premium.monthly'),
       price: 9.99,
-      period: '/month',
+      period: t('premium.month'),
       savings: null,
       popular: false
     },
     {
       id: 'annual',
-      name: 'Annual',
+      name: t('premium.annual'),
       price: 79.99,
-      period: '/year',
-      savings: 'Save 33%',
+      period: t('premium.year'),
+      savings: t('premium.save'),
       popular: true
     },
     {
       id: 'lifetime',
-      name: 'Lifetime',
+      name: t('premium.lifetime'),
       price: 199.99,
-      period: 'one-time',
-      savings: 'Best Value',
+      period: t('premium.oneTime'),
+      savings: t('premium.bestValue'),
       popular: false
     }
   ]
@@ -61,10 +63,10 @@ const Premium = () => {
         <div className="container">
           <div className="premium-active">
             <div className="premium-icon">⭐</div>
-            <h1>You're a Premium Member!</h1>
-            <p>Thank you for your support. Enjoy all premium features!</p>
+            <h1>{t('premium.youArePremium')}</h1>
+            <p>{t('premium.thankYou')}</p>
             <button className="btn btn-primary" onClick={() => navigate('/dashboard')}>
-              Go to Dashboard
+              {t('premium.goToDashboard')}
             </button>
           </div>
         </div>
@@ -76,8 +78,8 @@ const Premium = () => {
     <div className="premium-page">
       <div className="container">
         <div className="premium-hero">
-          <h1>Unlock Your Full Potential</h1>
-          <p>Join thousands of users who upgraded to premium and achieved their fitness goals</p>
+          <h1>{t('premium.title')}</h1>
+          <p>{t('premium.subtitle')}</p>
         </div>
 
         <div className="plans-section">
@@ -88,7 +90,7 @@ const Premium = () => {
                 className={`plan-card ${selectedPlan === plan.id ? 'selected' : ''} ${plan.popular ? 'popular' : ''}`}
                 onClick={() => setSelectedPlan(plan.id)}
               >
-                {plan.popular && <div className="popular-badge">Most Popular</div>}
+                {plan.popular && <div className="popular-badge">{t('premium.mostPopular')}</div>}
                 <h3>{plan.name}</h3>
                 <div className="plan-price">
                   <span className="price-amount">${plan.price}</span>
@@ -96,23 +98,23 @@ const Premium = () => {
                 </div>
                 {plan.savings && <div className="plan-savings">{plan.savings}</div>}
                 <div className="plan-features-list">
-                  <div className="plan-feature">✓ All Premium Features</div>
-                  <div className="plan-feature">✓ Cancel Anytime</div>
-                  <div className="plan-feature">✓ 30-Day Money Back</div>
+                  <div className="plan-feature">{t('premium.allFeatures')}</div>
+                  <div className="plan-feature">{t('premium.cancelAnytime')}</div>
+                  <div className="plan-feature">{t('premium.moneyBack')}</div>
                 </div>
               </div>
             ))}
           </div>
           <div className="upgrade-action">
             <button className="btn btn-primary btn-lg" onClick={handleUpgrade}>
-              Upgrade to Premium
+              {t('premium.upgrade')}
             </button>
-            <p className="secure-payment">🔒 Secure payment powered by Stripe</p>
+            <p className="secure-payment">{t('premium.securePayment')}</p>
           </div>
         </div>
 
         <div className="features-section">
-          <h2>Everything Included in Premium</h2>
+          <h2>{t('premium.everythingIncluded')}</h2>
           <div className="features-grid">
             {features.map((feature, index) => (
               <div key={index} className="feature-item">
@@ -127,7 +129,7 @@ const Premium = () => {
         </div>
 
         <div className="testimonials-section">
-          <h2>What Our Premium Members Say</h2>
+          <h2>{t('premium.testimonials')}</h2>
           <div className="testimonials-grid">
             <div className="testimonial-card">
               <div className="testimonial-rating">⭐⭐⭐⭐⭐</div>
@@ -157,7 +159,7 @@ const Premium = () => {
         </div>
 
         <div className="faq-section">
-          <h2>Frequently Asked Questions</h2>
+          <h2>{t('premium.faq')}</h2>
           <div className="faq-grid">
             <div className="faq-item">
               <h4>Can I cancel anytime?</h4>
