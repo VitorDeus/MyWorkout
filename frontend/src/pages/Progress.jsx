@@ -78,11 +78,25 @@ const Progress = () => {
     { icon: '📈', title: 'Progress Tracker', description: 'Tracked progress for 30 days', unlocked: false }
   ]
 
-  const weeklyGoal = {
-    target: 5,
-    current: Math.min(stats.totalWorkouts % 5, 5),
-    percentage: Math.min((stats.totalWorkouts % 5) / 5 * 100, 100)
-  }
+  const weeklyGoal = (() => {
+    const target = 5
+    const workouts = JSON.parse(localStorage.getItem('workouts') || '[]')
+    const today = new Date()
+    const weekStart = new Date(today)
+    weekStart.setDate(today.getDate() - today.getDay())
+    weekStart.setHours(0, 0, 0, 0)
+    
+    const thisWeekWorkouts = workouts.filter(w => {
+      const workoutDate = new Date(w.date)
+      return workoutDate >= weekStart
+    }).length
+    
+    return {
+      target,
+      current: Math.min(thisWeekWorkouts, target),
+      percentage: Math.min((thisWeekWorkouts / target) * 100, 100)
+    }
+  })()
 
   return (
     <div className="progress-page">

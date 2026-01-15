@@ -62,13 +62,24 @@ const Profile = () => {
               </div>
               <div className="profile-stat">
                 <div className="stat-value">
-                  {Math.floor(Math.random() * 30) + 10}
+                  {(() => {
+                    const workouts = JSON.parse(localStorage.getItem('workouts') || '[]')
+                    const uniqueDays = new Set(workouts.map(w => new Date(w.date).toDateString())).size
+                    return uniqueDays
+                  })()}
                 </div>
                 <div className="stat-label">Days Active</div>
               </div>
               <div className="profile-stat">
                 <div className="stat-value">
-                  {Math.floor(Math.random() * 10)}
+                  {(() => {
+                    const workouts = JSON.parse(localStorage.getItem('workouts') || '[]')
+                    let achievements = 0
+                    if (workouts.length > 0) achievements++
+                    if (workouts.length >= 10) achievements++
+                    if (workouts.length >= 50) achievements++
+                    return achievements
+                  })()}
                 </div>
                 <div className="stat-label">Achievements</div>
               </div>
