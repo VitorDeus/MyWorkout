@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import './Home.css'
 
 const Home = () => {
+  const { t } = useTranslation()
   const { isAuthenticated } = useAuth()
 
   return (
@@ -12,25 +14,24 @@ const Home = () => {
         <div className="container">
           <div className="hero-content">
             <h1 className="hero-title">
-              Transform Your Body,<br />
-              <span className="gradient-text">Track Your Progress</span>
+              {t('home.title')}<br />
+              <span className="gradient-text">{t('home.titleHighlight')}</span>
             </h1>
             <p className="hero-subtitle">
-              The ultimate fitness companion to help you achieve your goals.
-              Track workouts, monitor progress, and stay motivated.
+              {t('home.subtitle')}
             </p>
             <div className="hero-actions">
               {isAuthenticated ? (
                 <Link to="/dashboard" className="btn btn-primary btn-lg">
-                  Go to Dashboard
+                  {t('nav.dashboard')}
                 </Link>
               ) : (
                 <>
                   <Link to="/register" className="btn btn-primary btn-lg">
-                    Start Free Trial
+                    {t('home.startTrial')}
                   </Link>
                   <Link to="/login" className="btn btn-outline btn-lg">
-                    Sign In
+                    {t('home.signIn')}
                   </Link>
                 </>
               )}
@@ -41,37 +42,37 @@ const Home = () => {
 
       <section className="features">
         <div className="container">
-          <h2 className="section-title">Why Choose MyWorkout?</h2>
+          <h2 className="section-title">{t('home.whyChoose')}</h2>
           <div className="grid grid-3">
             <div className="feature-card">
               <div className="feature-icon">📊</div>
-              <h3>Track Progress</h3>
-              <p>Monitor your strength gains, weight loss, and body measurements over time with detailed charts and analytics.</p>
+              <h3>{t('home.features.trackProgress.title')}</h3>
+              <p>{t('home.features.trackProgress.desc')}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">💪</div>
-              <h3>Custom Workouts</h3>
-              <p>Create personalized workout routines tailored to your goals, or choose from hundreds of pre-made programs.</p>
+              <h3>{t('home.features.customWorkouts.title')}</h3>
+              <p>{t('home.features.customWorkouts.desc')}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">📱</div>
-              <h3>Mobile Ready</h3>
-              <p>Access your workouts anywhere, anytime. Works seamlessly on all your devices, even offline.</p>
+              <h3>{t('home.features.mobileReady.title')}</h3>
+              <p>{t('home.features.mobileReady.desc')}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">🎯</div>
-              <h3>Goal Setting</h3>
-              <p>Set realistic fitness goals and get AI-powered recommendations to help you achieve them faster.</p>
+              <h3>{t('home.features.goalSetting.title')}</h3>
+              <p>{t('home.features.goalSetting.desc')}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">🤝</div>
-              <h3>Community</h3>
-              <p>Join challenges, share progress, and stay motivated with a supportive fitness community.</p>
+              <h3>{t('home.features.community.title')}</h3>
+              <p>{t('home.features.community.desc')}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">🔥</div>
-              <h3>Premium Plans</h3>
-              <p>Unlock advanced features, personalized coaching, and exclusive workout programs from expert trainers.</p>
+              <h3>{t('home.features.premiumPlans.title')}</h3>
+              <p>{t('home.features.premiumPlans.desc')}</p>
             </div>
           </div>
         </div>
@@ -82,19 +83,19 @@ const Home = () => {
           <div className="stats-grid">
             <div className="stat-item">
               <div className="stat-number">10K+</div>
-              <div className="stat-label">Active Users</div>
+              <div className="stat-label">{t('home.stats.activeUsers')}</div>
             </div>
             <div className="stat-item">
               <div className="stat-number">500+</div>
-              <div className="stat-label">Workout Programs</div>
+              <div className="stat-label">{t('home.stats.workoutPrograms')}</div>
             </div>
             <div className="stat-item">
               <div className="stat-number">1M+</div>
-              <div className="stat-label">Workouts Logged</div>
+              <div className="stat-label">{t('home.stats.workoutsLogged')}</div>
             </div>
             <div className="stat-item">
               <div className="stat-number">4.9★</div>
-              <div className="stat-label">User Rating</div>
+              <div className="stat-label">{t('home.stats.userRating')}</div>
             </div>
           </div>
         </div>
@@ -103,11 +104,11 @@ const Home = () => {
       <section className="cta-section">
         <div className="container">
           <div className="cta-content">
-            <h2>Ready to Start Your Fitness Journey?</h2>
-            <p>Join thousands of users who are already achieving their fitness goals</p>
+            <h2>{t('home.cta.title')}</h2>
+            <p>{t('home.cta.subtitle')}</p>
             {!isAuthenticated && (
               <Link to="/register" className="btn btn-primary btn-lg">
-                Get Started Free
+                {t('home.cta.button')}
               </Link>
             )}
           </div>

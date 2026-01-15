@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import './Auth.css'
 
 const Login = () => {
+  const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -16,7 +18,7 @@ const Login = () => {
     setError('')
     
     if (!email || !password) {
-      setError('Please fill in all fields')
+      setError(t('auth.fillAllFields'))
       return
     }
 
@@ -38,14 +40,14 @@ const Login = () => {
       <div className="container">
         <div className="auth-container">
           <div className="auth-card">
-            <h1 className="auth-title">Welcome Back</h1>
-            <p className="auth-subtitle">Sign in to continue your fitness journey</p>
+            <h1 className="auth-title">{t('auth.welcomeBack')}</h1>
+            <p className="auth-subtitle">{t('auth.signInSubtitle')}</p>
 
             {error && <div className="error-message">{error}</div>}
 
             <form onSubmit={handleSubmit} className="auth-form">
               <div className="form-group">
-                <label htmlFor="email" className="form-label">Email</label>
+                <label htmlFor="email" className="form-label">{t('auth.email')}</label>
                 <input
                   id="email"
                   type="email"
@@ -58,7 +60,7 @@ const Login = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="password" className="form-label">Password</label>
+                <label htmlFor="password" className="form-label">{t('auth.password')}</label>
                 <input
                   id="password"
                   type="password"
@@ -71,12 +73,12 @@ const Login = () => {
               </div>
 
               <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
-                {loading ? 'Signing in...' : 'Sign In'}
+                {loading ? t('auth.signingIn') : t('auth.signIn')}
               </button>
             </form>
 
             <div className="auth-footer">
-              <p>Don't have an account? <Link to="/register" className="auth-link">Sign up</Link></p>
+              <p>{t('auth.dontHaveAccount')} <Link to="/register" className="auth-link">{t('nav.getStarted')}</Link></p>
             </div>
           </div>
         </div>
