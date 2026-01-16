@@ -537,12 +537,285 @@ const resources = {
       footer: {
         tagline: 'Your personal fitness companion',
         quickLinks: 'Quick Links',
+        support: 'Suporte',
+        helpCenter: 'Central de Ajuda',
+        contactUs: 'Entre em Contato',
+        privacyPolicy: 'Política de Privacidade',
+        allRightsReserved: 'Todos os direitos reservados.'
+      },
+      // AI Chat
+      ai_coach: 'Coach IA',
+      ai_premium_desc: 'Converse com nossos 5 coaches especializados para orientação personalizada',
+      ai_free_desc: 'Faça perguntas ao Personal Trainer. Upgrade para acessar todos os coaches!',
+      ai_question_placeholder: 'Ex: Como melhorar meu supino? Quantas proteínas devo comer?',
+      ai_thinking: 'Pensando...',
+      ai_ask: 'Perguntar',
+      ai_response: 'Resposta dos Coaches',
+      ai_upgrade_prompt: 'Upgrade para Premium e acesse todos os 5 coaches especializados!',
+      upgrade_to_premium: 'Fazer Upgrade',
+      premium_features: 'Recursos Premium',
+      unlock_all_agents: 'Desbloquear Todos os Coaches'
+    }
+  },
+  en: {
+    translation: {
+      // Navigation
+      nav: {
+        login: 'Login',
+        getStarted: 'Get Started',
+        dashboard: 'Dashboard',
+        workouts: 'Workouts',
+        exercises: 'Exercises',
+        progress: 'Progress',
+        profile: 'Profile',
+        premium: 'Premium',
+        goPremium: '⭐ Go Premium',
+        logout: 'Logout'
+      },
+      // Home page
+      home: {
+        title: 'Transform Your Body,',
+        titleHighlight: 'Track Your Progress',
+        subtitle: 'The ultimate fitness companion to help you achieve your goals. Track workouts, monitor progress, and stay motivated.',
+        startTrial: 'Start Free Trial',
+        signIn: 'Sign In',
+        whyChoose: 'Why Choose MyWorkout?',
+        features: {
+          trackProgress: {
+            title: 'Track Progress',
+            desc: 'Monitor your strength gains, weight loss, and body measurements over time with detailed charts and analytics.'
+          },
+          customWorkouts: {
+            title: 'Custom Workouts',
+            desc: 'Create personalized workout routines tailored to your goals, or choose from hundreds of pre-made programs.'
+          },
+          mobileReady: {
+            title: 'Mobile Ready',
+            desc: 'Access your workouts anywhere, anytime. Works seamlessly on all your devices, even offline.'
+          },
+          goalSetting: {
+            title: 'Goal Setting',
+            desc: 'Set realistic fitness goals and get AI-powered recommendations to help you achieve them faster.'
+          },
+          community: {
+            title: 'Community',
+            desc: 'Join challenges, share progress, and stay motivated with a supportive fitness community.'
+          },
+          premiumPlans: {
+            title: 'Premium Plans',
+            desc: 'Unlock advanced features, personalized coaching, and exclusive workout programs from expert trainers.'
+          }
+        },
+        stats: {
+          activeUsers: 'Active Users',
+          workoutPrograms: 'Workout Programs',
+          workoutsLogged: 'Workouts Logged',
+          userRating: 'User Rating'
+        },
+        readyToStart: 'Ready to Start Your Fitness Journey?',
+        joinThousands: 'Join thousands of users who are already achieving their fitness goals',
+        getStartedFree: 'Get Started Free'
+      },
+      // Authentication
+      auth: {
+        loginTitle: 'Welcome Back',
+        loginSubtitle: 'Sign in to continue your fitness journey',
+        registerTitle: 'Create Account',
+        registerSubtitle: 'Start your fitness journey today',
+        email: 'Email',
+        password: 'Password',
+        name: 'Full Name',
+        login: 'Sign In',
+        register: 'Create Account',
+        noAccount: "Don't have an account?",
+        haveAccount: 'Already have an account?',
+        signUp: 'Sign up',
+        signIn: 'Sign in',
+        emailPlaceholder: 'your@email.com',
+        passwordPlaceholder: '••••••••',
+        namePlaceholder: 'John Doe'
+      },
+      // Dashboard
+      dashboard: {
+        welcome: 'Welcome back',
+        stats: {
+          workoutsCompleted: 'Workouts Completed',
+          totalExercises: 'Total Exercises',
+          weeklyGoal: 'Weekly Goal',
+          achievements: 'Achievements',
+          caloriesBurned: 'Calories Burned'
+        },
+        quickActions: 'Quick Actions',
+        actions: {
+          startWorkout: 'Start Workout',
+          viewExercises: 'View Exercises',
+          trackProgress: 'Track Progress',
+          upgradeAccount: 'Upgrade Account'
+        },
+        recentActivity: 'Recent Activity'
+      },
+      // Workouts
+      workouts: {
+        title: 'My Workouts',
+        subtitle: 'Create and manage your training routines',
+        templates: 'Workout Templates',
+        templatesSubtitle: 'Quick start with pre-built routines',
+        createCustom: '+ Create Custom Workout',
+        useTemplate: 'Use Template',
+        customWorkouts: 'My Custom Workouts',
+        noCustom: 'No custom workouts yet. Create your first one!',
+        fullBody: 'Full Body Strength',
+        upperBody: 'Upper Body',
+        lowerBody: 'Lower Body',
+        hiit: 'HIIT Cardio',
+        coreAbs: 'Core & Abs',
+        powerlifting: 'Powerlifting'
+      },
+      // Exercises
+      exercises: {
+        title: 'Exercise Library',
+        subtitle: 'Browse our comprehensive collection of exercises',
+        search: 'Search exercises...',
+        showing: 'Showing',
+        exercisesCount: 'exercises',
+        all: 'All',
+        chest: 'Chest',
+        back: 'Back',
+        legs: 'Legs',
+        shoulders: 'Shoulders',
+        arms: 'Arms',
+        core: 'Core',
+        cardio: 'Cardio',
+        addToWorkout: 'Add to Workout',
+        caloriesPer30Min: 'calories/30 min'
+      },
+      // Progress
+      progress: {
+        title: 'Progress Tracking',
+        subtitle: 'Monitor your fitness journey',
+        weeklyGoal: 'Weekly Goal',
+        workouts: 'workouts',
+        activityCalendar: 'Activity Calendar',
+        achievements: 'Achievements',
+        workoutsCompleted: 'Workouts Completed',
+        daysActive: 'Days Active',
+        exercisesLogged: 'Exercises Logged'
+      },
+      // Profile
+      profile: {
+        title: 'Profile Settings',
+        personalInfo: 'Personal Information',
+        name: 'Full Name',
+        email: 'Email',
+        fitnessGoals: 'Fitness Goals',
+        experience: 'Experience Level',
+        beginner: 'Beginner',
+        intermediate: 'Intermediate',
+        advanced: 'Advanced',
+        preferences: 'Preferences',
+        emailNotifications: 'Email Notifications',
+        weeklyReports: 'Weekly Progress Reports',
+        workoutReminders: 'Workout Reminders',
+        saveChanges: 'Save Changes',
+        cancel: 'Cancel',
+        goals: {
+          buildMuscle: 'Build Muscle',
+          loseWeight: 'Lose Weight',
+          getStronger: 'Get Stronger',
+          improveEndurance: 'Improve Endurance',
+          stayHealthy: 'Stay Healthy'
+        }
+      },
+      // Premium
+      premium: {
+        title: 'Unlock Your Full Potential',
+        subtitle: 'Join thousands of users who upgraded to premium and achieved their fitness goals',
+        monthly: 'Monthly',
+        annual: 'Annual',
+        lifetime: 'Lifetime',
+        month: '/month',
+        year: '/year',
+        oneTime: '/one-time',
+        mostPopular: 'Most Popular',
+        bestValue: 'Best Value',
+        save: 'Save',
+        allFeatures: 'All Premium Features',
+        cancelAnytime: 'Cancel Anytime',
+        moneyBack: '30-Day Money Back',
+        upgradeToPremium: 'Upgrade to Premium',
+        securePayment: 'Secure payment powered by Stripe',
+        everythingIncluded: 'Everything Included in Premium',
+        features: {
+          aiCoach: 'AI Workout Coach',
+          aiCoachDesc: 'Get personalized recommendations powered by AI',
+          analytics: 'Advanced Analytics',
+          analyticsDesc: 'Detailed insights into your progress and performance',
+          customPlans: 'Custom Training Plans',
+          customPlansDesc: 'Personalized programs tailored to your goals',
+          nutrition: 'Nutrition Tracking',
+          nutritionDesc: 'Track calories, macros, and meal plans',
+          expertPrograms: 'Expert Programs',
+          expertProgramsDesc: 'Access exclusive workouts from professional trainers',
+          videoTutorials: 'Video Tutorials',
+          videoTutorialsDesc: 'HD exercise demonstrations and form guides',
+          challenges: 'Challenges & Leaderboards',
+          challengesDesc: 'Compete with others and stay motivated',
+          prioritySupport: 'Priority Support',
+          prioritySupportDesc: '24/7 on-demand support from fitness experts',
+          offlineMode: 'Offline Mode',
+          offlineModeDesc: 'Download workouts for offline access',
+          healthSync: 'Apple Health & Google Fit',
+          healthSyncDesc: 'Sync with your favorite health apps',
+          progressPhotos: 'Progress Photos',
+          progressPhotosDesc: 'Track visual progress with photo comparisons',
+          customThemes: 'Custom Themes',
+          customThemesDesc: 'Personalize your app experience'
+        },
+        testimonials: {
+          title: 'What Our Premium Members Say',
+          member1: '"The AI coach feature is amazing! It\'s like having a personal trainer in my pocket."',
+          member2: '"I\'ve seen incredible progress since upgrading. The custom plans are worth every penny."',
+          member3: '"Best fitness app I\'ve ever used. The nutrition tracking has been a game changer for me."'
+        },
+        faq: {
+          title: 'Frequently Asked Questions',
+          q1: 'Can I cancel anytime?',
+          a1: 'You can cancel your subscription at any time with no questions asked!',
+          q2: 'What payment methods do you accept?',
+          a2: 'We accept all major credit cards, debit cards, and PayPal through our secure payment processor.',
+          q3: 'Is there a money-back guarantee?',
+          a3: 'Yes, we offer a 30-day money-back guarantee. If you\'re not satisfied, we\'ll refund you in full.',
+          q4: 'Will I lose my data if I downgrade?',
+          a4: 'No, all your workout history and progress will be saved. You\'ll just lose access to premium features.'
+        },
+        youArePremium: 'You are a Premium Member!',
+        thankYou: 'Thank you for your support'
+      },
+      // Footer
+      footer: {
+        tagline: 'Your personal fitness companion',
+        quickLinks: 'Quick Links',
+        exercises: 'Exercises',
+        workouts: 'Workouts',
+        premium: 'Premium',
         support: 'Support',
         helpCenter: 'Help Center',
         contactUs: 'Contact Us',
         privacyPolicy: 'Privacy Policy',
         allRightsReserved: 'All rights reserved.'
-      }
+      },
+      // AI Chat
+      ai_coach: 'AI Coach',
+      ai_premium_desc: 'Chat with our 5 specialized coaches for personalized guidance',
+      ai_free_desc: 'Ask questions to the Personal Trainer. Upgrade to access all coaches!',
+      ai_question_placeholder: 'E.g., How to improve my bench press? How much protein should I eat?',
+      ai_thinking: 'Thinking...',
+      ai_ask: 'Ask',
+      ai_response: 'Coach Response',
+      ai_upgrade_prompt: 'Upgrade to Premium and access all 5 specialized coaches!',
+      upgrade_to_premium: 'Upgrade Now',
+      premium_features: 'Premium Features',
+      unlock_all_agents: 'Unlock All Coaches'
     }
   }
 }

@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react'
+import api from '../services/api'
 
 const AuthContext = createContext(null)
 
@@ -16,61 +17,89 @@ export const AuthProvider = ({ children }) => {
   const [isPremium, setIsPremium] = useState(false)
 
   useEffect(() => {
-    // Check for stored user data on mount
+    // Check for stored token and user data on mount
+    const token = localStorage.getItem('token')
     const storedUser = localStorage.getItem('user')
-    const storedPremium = localStorage.getItem('isPremium')
     
-    if (storedUser) {
+    if (token && storedUser) {
       try {
-        setUser(JSON.parse(storedUser))
-        setIsPremium(storedPremium === 'true')
+        const userData = JSON.parse(storedUser)
+        setUser(userData)
+        setIsPremium(userData.is_premium || false)
       } catch (error) {
         console.error('Error parsing stored user data:', error)
         localStorage.removeItem('user')
+        localStorage.removeItem('token')
       }
     }
     setLoading(false)
   }, [])
 
   const login = async (email, password) => {
-    // In a real app, this would call an API
-    // For now, simulate a successful login
-    const userData = {
-      id: Date.now(),
-      email,
-      name: email.split('@')[0],
-      createdAt: new Date().toISOString()
+    try {
+      const response = await api.auth.login({ email, password })
+      
+      // Store token and user data
+      localStorage.setItem('token', response.token)
+      localStorage.setItem('user', JSON.stringify(response.user))
+      
+      setUser(response.user)
+      setIsPremium(response.user.is_premium || false)
+      
+      return { success: true, user: response.user }
+    } catch (error) {
+      console.error('Login error:', error)
+      return { success: false, error: error.message }
     }
-    
-    setUser(userData)
-    localStorage.setItem('user', JSON.stringify(userData))
-    return { success: true, user: userData }
   }
 
   const register = async (email, password, name) => {
-    // In a real app, this would call an API
-    const userData = {
-      id: Date.now(),
-      email,
-      name,
-      createdAt: new Date().toISOString()
+    try {
+      const response = await api.auth.register({ email, password, name })
+      
+      // Store token and user data
+      localStorage.setItem('token', response.token)
+      localStorage.setItem('user', JSON.stringify(response.user))
+      
+      setUser(response.user)
+      setIsPremium(false)
+      
+      return { success: true, user: response.user }
+    } catch (error) {
+      console.error('Registration error:', error)
+      return { success: false, error: error.message }
     }
-    
-    setUser(userData)
-    localStorage.setItem('user', JSON.stringify(userData))
-    return { success: true, user: userData }
   }
 
   const logout = () => {
     setUser(null)
     setIsPremium(false)
     localStorage.removeItem('user')
+    localStorage.removeItem('token')
     localStorage.removeItem('isPremium')
   }
 
   const upgradeToPremium = () => {
+    // In production, this would trigger Stripe payment flow
+    // For now, simulate upgrade
     setIsPremium(true)
+    if (user) {
+      const updatedUser = { ...user, is_premium: true }
+      setUser(updatedUser)
+      localStorage.setItem('user', JSON.stringify(updatedUser))
+    }
     localStorage.setItem('isPremium', 'true')
+  }
+
+  const refreshUserData = async () => {
+    try {
+      const profileData = await api.users.getProfile()
+      setUser(profileData.user)
+      setIsPremium(profileData.user.is_premium || false)
+      localStorage.setItem('user', JSON.stringify(profileData.user))
+    } catch (error) {
+      console.error('Error refreshing user data:', error)
+    }
   }
 
   const value = {
@@ -81,6 +110,7 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     upgradeToPremium,
+    refreshUserData,
     isAuthenticated: !!user
   }
 

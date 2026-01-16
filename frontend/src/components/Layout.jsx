@@ -67,6 +67,9 @@ const Layout = () => {
                   <Link to="/progress" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
                     {t('nav.progress')}
                   </Link>
+                  <Link to="/ai-coach" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                    🤖 {t('ai_coach')}
+                  </Link>
                   {!isPremium && (
                     <Link to="/premium" className="nav-link premium-link" onClick={() => setIsMobileMenuOpen(false)}>
                       {t('nav.goPremium')}

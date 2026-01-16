@@ -12,6 +12,7 @@ import Exercises from './pages/Exercises'
 import Progress from './pages/Progress'
 import Profile from './pages/Profile'
 import Premium from './pages/Premium'
+import AIChat from './pages/AIChat'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="progress" element={<Progress />} />
               <Route path="profile" element={<Profile />} />
               <Route path="premium" element={<Premium />} />
+              <Route path="ai-coach" element={<AIChat />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>
