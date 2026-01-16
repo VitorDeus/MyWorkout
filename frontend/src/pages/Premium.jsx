@@ -2,17 +2,38 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import api from '../services/api'
 import './Premium.css'
 
 const Premium = () => {
   const { t } = useTranslation()
-  const { isPremium, upgradeToPremium } = useAuth()
+  const { isPremium, user } = useAuth()
   const navigate = useNavigate()
   const [selectedPlan, setSelectedPlan] = useState('annual')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-  const handleUpgrade = () => {
-    upgradeToPremium()
-    navigate('/dashboard')
+  const handleUpgrade = async () => {
+    if (!user) {
+      navigate('/login')
+      return
+    }
+
+    setLoading(true)
+    setError(null)
+
+    try {
+      const response = await api.payments.createCheckoutSession(selectedPlan)
+      
+      // Redirect to Stripe Checkout
+      if (response.url) {
+        window.location.href = response.url
+      }
+    } catch (err) {
+      console.error('Payment error:', err)
+      setError(t('premium.paymentError') || 'Failed to initiate payment. Please try again.')
+      setLoading(false)
+    }
   }
 
   const plans = [
@@ -106,10 +127,18 @@ const Premium = () => {
             ))}
           </div>
           <div className="upgrade-action">
-            <button className="btn btn-primary btn-lg" onClick={handleUpgrade}>
-              {t('premium.upgrade')}
+            {error && <div className="error-message">{error}</div>}
+            <button 
+              className="btn btn-primary btn-lg" 
+              onClick={handleUpgrade}
+              disabled={loading}
+            >
+              {loading ? t('premium.processing') || 'Processing...' : t('premium.upgrade')}
             </button>
-            <p className="secure-payment">{t('premium.securePayment')}</p>
+            <p className="secure-payment">
+              🔒 {t('premium.securePayment')} 
+              <img src="/stripe-badge.png" alt="Stripe" style={{height: '20px', marginLeft: '8px', verticalAlign: 'middle'}} onError={(e) => e.target.style.display='none'} />
+            </p>
           </div>
         </div>
 

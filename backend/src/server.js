@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.js';
 import workoutRoutes from './routes/workouts.js';
 import aiRoutes from './routes/ai.js';
 import userRoutes from './routes/users.js';
+import paymentRoutes from './routes/payments.js';
 
 // Load environment variables
 dotenv.config();
@@ -43,6 +44,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/workouts', workoutRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // 404 handler
 app.use((req, res) => {

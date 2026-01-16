@@ -211,6 +211,39 @@ const api = {
     },
   },
 
+  // ========== Payments (Stripe) ==========
+  payments: {
+    createCheckoutSession: async (plan) => {
+      const response = await fetch(`${API_BASE_URL}/api/payments/create-checkout-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getAuthToken()}`,
+        },
+        body: JSON.stringify({ plan }),
+      });
+      return handleResponse(response);
+    },
+
+    verifySession: async (sessionId) => {
+      const response = await fetch(`${API_BASE_URL}/api/payments/verify-session/${sessionId}`, {
+        headers: {
+          'Authorization': `Bearer ${getAuthToken()}`,
+        },
+      });
+      return handleResponse(response);
+    },
+
+    getSubscriptionStatus: async () => {
+      const response = await fetch(`${API_BASE_URL}/api/payments/subscription-status`, {
+        headers: {
+          'Authorization': `Bearer ${getAuthToken()}`,
+        },
+      });
+      return handleResponse(response);
+    },
+  },
+
   // ========== Health Check ==========
   health: async () => {
     const response = await fetch(`${API_BASE_URL}/health`);

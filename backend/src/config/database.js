@@ -55,6 +55,7 @@ export const initializeDatabase = async () => {
         experience_level VARCHAR(50),
         is_premium BOOLEAN DEFAULT FALSE,
         premium_expires_at TIMESTAMP,
+        subscription_plan VARCHAR(50),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
