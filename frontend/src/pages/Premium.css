@@ -1,0 +1,310 @@
+.premium-page {
+  padding: 2rem 0;
+}
+
+.premium-hero {
+  text-align: center;
+  padding: 3rem 0;
+  margin-bottom: 3rem;
+}
+
+.premium-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.premium-hero p {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+}
+
+.plans-section {
+  margin-bottom: 4rem;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.plan-card {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 3px solid transparent;
+  position: relative;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.plan-card.selected {
+  border-color: var(--primary-color);
+}
+
+.plan-card.popular {
+  border-color: var(--warning-color);
+}
+
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.plan-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.plan-price {
+  margin-bottom: 1rem;
+}
+
+.price-amount {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.price-period {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.plan-savings {
+  background: var(--secondary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.plan-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.plan-feature {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.upgrade-action {
+  text-align: center;
+  padding: 2rem;
+}
+
+.secure-payment {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.error-message {
+  background: #fee;
+  color: #c33;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #fcc;
+  text-align: center;
+}
+
+.features-section {
+  margin-bottom: 4rem;
+}
+
+.features-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.feature-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--surface);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s;
+}
+
+.feature-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.feature-content h4 {
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.feature-content p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.testimonials-section {
+  margin-bottom: 4rem;
+  padding: 3rem 0;
+  background: var(--surface);
+  border-radius: 1rem;
+}
+
+.testimonials-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+.testimonial-card {
+  background: var(--background);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.testimonial-rating {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.testimonial-author strong {
+  color: var(--text-primary);
+}
+
+.testimonial-author span {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.faq-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.faq-item {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.faq-item h4 {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-size: 1.125rem;
+}
+
+.faq-item p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.premium-active {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--surface);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.premium-icon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+
+.premium-active h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.premium-active p {
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .premium-hero h1 {
+    font-size: 2rem;
+  }
+
+  .plans-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features-grid,
+  .testimonials-grid,
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+}
